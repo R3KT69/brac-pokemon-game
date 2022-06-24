@@ -131,11 +131,4 @@ while True:
         break
 
 
-
-
-
-
-"""print(type_affinity1, choose_character_ash.name, choose_character_gary.name)
-print(choose_character_ash.hp, choose_character_gary.hp)
-print(choose_character_ash.hp - 50 * type_affinity1)
-print(choose_character_gary.hp - 50 * type_affinity1)"""
+# made by r3kt
