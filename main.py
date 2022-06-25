@@ -38,8 +38,8 @@ type_affinity2 = 0
 ash_input = input("You Choose: ")
 gary_input = input("Gary Chooses: ")
 
-choose_character_ash = Character
-choose_character_gary = Character
+choose_character_ash = Character()
+choose_character_gary = Character()
 
 if ash_input == "Charmander":
     ash_type = Character.type[0]
