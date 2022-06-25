@@ -129,6 +129,3 @@ while True:
         else:
             print("It's a tie!")
         break
-
-
-# made by r3kt
