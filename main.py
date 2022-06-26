@@ -3,44 +3,38 @@ class Character:
     name = "" # Their name
     hp = 50 # Their initial health
     attack_pow = 20 # Their initial attack power
-    type = ["fire", "water", "grass"] # Array of available attack types
+    type = ["fire", "water", "grass"] # List of available attack types
 
 # Fire Type
 Charmander = Character()
 Charmander.type = Character.type[0]
-Charmander.name = Character.name = "Charmander"
+Charmander.name = "Charmander"
 Cyndaquil = Character()
 Cyndaquil.type = Character.type[0]
-Cyndaquil.name = Character.name = "Cyndaquil"
+Cyndaquil.name = "Cyndaquil"
 # Water Type
 Squirtle = Character()
 Squirtle.type = Character.type[1]
-Squirtle.name = Character.name = "Squirtle"
+Squirtle.name = "Squirtle"
 Totodile = Character()
 Totodile.type = Character.type[1]
-Totodile.name = Character.name = "Totodile"
+Totodile.name = "Totodile"
 # Grass Type
 Bulbasaur = Character()
 Bulbasaur.type = Character.type[2]
-Bulbasaur.name = Character.name = "Bulbasaur"
+Bulbasaur.name = "Bulbasaur"
 Chikorita = Character()
 Chikorita.type = Character.type[2]
-Chikorita.name = Character.name = "Chikorita"
+Chikorita.name = "Chikorita"
 
-# Character.type[0] means fire, Character.type[1] means water, Character.type[2] means grass.
-
-ash_type = ""
-gary_type = ""
-
-type_affinity1 = 0
-type_affinity2 = 0
-
+# We take input from ash and gary, and store them in variables
 ash_input = input("You Choose: ")
 gary_input = input("Gary Chooses: ")
 
-choose_character_ash = Character()
-choose_character_gary = Character()
+ash_type = []
+gary_type = []
 
+# Declaring variables based on Ash's input
 if ash_input == "Charmander":
     ash_type = Character.type[0]
     choose_character_ash = Charmander
@@ -60,6 +54,7 @@ elif ash_input == "Chikorita":
     ash_type = Character.type[2]
     choose_character_ash = Chikorita
 
+# Declaring variables based on Gary's input
 if gary_input == "Charmander":
     gary_type = Character.type[0]
     choose_character_gary = Charmander
@@ -79,57 +74,65 @@ elif gary_input == "Chikorita":
     gary_type = Character.type[2]
     choose_character_gary = Chikorita
 
-# 0 = fire, 1 = water, 2 = grass
-if ash_type == Character.type[0] and gary_type == Character.type[0]: # making equal affinity for same types. (fire vs fire, water vs water, grass vs grass)
-    type_affinity1 = 1
-    type_affinity2 = 1
-elif ash_type == Character.type[1] and gary_type == Character.type[1]:
-    type_affinity1 = 1
-    type_affinity2 = 1
-elif ash_type == Character.type[2] and gary_type == Character.type[2]:
-    type_affinity1 = 1
-    type_affinity2 = 1
+# Character.type[0] means fire, Character.type[1] means water, Character.type[2] means grass.
+
+if ash_type == Character.type[0] and gary_type == Character.type[0]: # fire v fire
+    type_affinity1_ash = 1
+    type_affinity2_gary = 1
+elif ash_type == Character.type[1] and gary_type == Character.type[1]: # water v water
+    type_affinity1_ash = 1
+    type_affinity2_gary = 1
+elif ash_type == Character.type[2] and gary_type == Character.type[2]: # grass vs grass
+    type_affinity1_ash = 1
+    type_affinity2_gary = 1
+
+# We compare two types and their vice versa
 
 if ash_type == Character.type[0] and gary_type == Character.type[1]: # fire weaker against water
-    type_affinity1 = 0.5
-    type_affinity2 = 2
+    type_affinity1_ash = 0.5
+    type_affinity2_gary = 2
 elif ash_type == Character.type[1] and gary_type == Character.type[0]: # water stronger against fire
-    type_affinity1 = 2
-    type_affinity2 = 0.5
+    type_affinity1_ash = 2
+    type_affinity2_gary = 0.5
 elif ash_type == Character.type[0] and gary_type == Character.type[2]: # fire stronger against grass
-    type_affinity1 = 2
-    type_affinity2 = 0.5
-elif ash_type == Character.type[1] and gary_type == Character.type[2]: # water weaker against grass
-    type_affinity1 = 0.5
-    type_affinity2 = 2
-elif ash_type == Character.type[2] and gary_type == Character.type[1]: # grass stronger against water
-    type_affinity1 = 2
-    type_affinity2 = 0.5
+    type_affinity1_ash = 2
+    type_affinity2_gary = 0.5
 elif ash_type == Character.type[2] and gary_type == Character.type[0]: # grass weaker against fire
-    type_affinity1 = 0.5
-    type_affinity2 = 2
+    type_affinity1_ash = 0.5
+    type_affinity2_gary = 2
+elif ash_type == Character.type[1] and gary_type == Character.type[2]: # water weaker against grass
+    type_affinity1_ash = 0.5
+    type_affinity2_gary = 2
+elif ash_type == Character.type[2] and gary_type == Character.type[1]: # grass stronger against water
+    type_affinity1_ash = 2
+    type_affinity2_gary = 0.5
 
-turn = 0 # Game turn
-remaining_hp1 = choose_character_ash.hp # Health of the character choosen by Ash
-remaining_hp2 = choose_character_gary.hp # Health of the character choosen by Gary
+# For updating fight turns
+turn = 0
 
-# Main game loop
+remaining_hp1 = choose_character_ash.hp
+remaining_hp2 = choose_character_gary.hp
+
 while True:
-    # Incrementing turns
+    # Updating turn and printing it
     turn += 1
-    print("===", "Turn", turn,"===")
-    
+    print("===", "Turn", turn, "===")
+
     # Remaining hp = previous hp – attack power * type affinity
-    remaining_hp1 = remaining_hp1 - (choose_character_gary.attack_pow * type_affinity2)
-    remaining_hp2 = remaining_hp2 - (choose_character_ash.attack_pow * type_affinity1)
+    remaining_hp1 = remaining_hp1 - (choose_character_gary.attack_pow * type_affinity2_gary)
+    remaining_hp2 = remaining_hp2 - (choose_character_ash.attack_pow * type_affinity1_ash)
+
+    # If any of their hp goes down below 0 (like -10, -30)
     if remaining_hp1 < 0:
         remaining_hp1 = 0
     if remaining_hp2 < 0:
         remaining_hp2 = 0
+
+    # Printing character name and hp
     print(choose_character_ash.name, "has", int(remaining_hp1), "hp left")
     print(choose_character_gary.name, "has", int(remaining_hp2), "hp left")
-    
-    # Loop break logic
+
+    # Game end logic
     if remaining_hp1 <= 0 or remaining_hp2 <= 0:
         if remaining_hp1 > remaining_hp2:
             print(choose_character_ash.name, "and Ash Wins!")
@@ -138,5 +141,3 @@ while True:
         else:
             print("It's a tie!")
         break
-
-# The end!
